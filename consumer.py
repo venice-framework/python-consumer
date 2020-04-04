@@ -5,15 +5,23 @@ from confluent_kafka.avro.serializer import SerializerError
 import os
 import time
 
+"""
+This is an example consumer intended to demonstrate basic
+functionality of the pipeline.
+
+This consumer subscribes to a topic, deserializes events (messages),
+and prints them out.
+
+You must set the TOPIC_NAME environment variable.
+This image does not have a default TOPIC_NAME set, to avoid
+potentially confusing errors.
+
+Reference: https://github.com/confluentinc/confluent-kafka-python
+"""
+
 BROKER = os.environ['BROKER']
 SCHEMA_REGISTRY_URL = os.environ['SCHEMA_REGISTRY_URL']
 TOPIC_NAME = os.environ['TOPIC_NAME'] 
-
-# sleep to give the schema-registry time to connect to kafka 
-for i in range(120):
-  print("I am sleeping for {} seconds".format(i))
-  time.sleep(1)
-print("I am done sleeping")
 
 c = AvroConsumer({
     'bootstrap.servers': BROKER,
